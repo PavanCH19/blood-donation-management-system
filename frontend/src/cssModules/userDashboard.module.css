@@ -1,0 +1,38 @@
+.availabilityToggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggleBtn {
+    width: 50px;
+    height: 25px;
+    border-radius: 15px;
+    background-color: #ccc;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.active {
+    background-color: #42b246;
+}
+
+.inactive {
+    background-color: rgb(208, 46, 46);
+}
+
+.toggleCircle {
+    width: 21px;
+    height: 21px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.active .toggleCircle {
+    transform: translateX(25px);
+}

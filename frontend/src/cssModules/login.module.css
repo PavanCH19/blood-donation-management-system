@@ -1,0 +1,109 @@
+/* General Styling */
+.loginContainer {
+    width: 320px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Tab Buttons */
+.tabButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.tabButtons label {
+    cursor: pointer;
+    padding: 10px 18px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    color: #555;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.tabButtons .active {
+    background-color: #6e8efb;
+    color: #fff;
+}
+
+/* Sliding Forms */
+.forms {
+    display: flex;
+    transition: transform 0.3s ease;
+    width: 200%;
+    /* Double the width for sliding */
+}
+
+.formWrapper {
+    width: 50%;
+    /* Each form occupies half of the container */
+    display: flex;
+    justify-content: center;
+}
+
+.slideLeft {
+    transform: translateX(0%);
+}
+
+.slideRight {
+    transform: translateX(-50%);
+}
+
+/* Form Styling */
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form label {
+    margin-top: 10px;
+}
+
+.form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.submitButton {
+    padding: 12px;
+    background-color: #6e8efb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.submitButton:hover {
+    background-color: #5a7ae8;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.extraLinks {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.extraLinks a {
+    color: #6e8efb;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.extraLinks a:hover {
+    text-decoration: underline;
+}
