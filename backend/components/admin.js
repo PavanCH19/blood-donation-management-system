@@ -86,74 +86,101 @@ exports.updateAdminDetails = (req, res) => {
         }
     });
 };
-
 exports.removedByAdmin = async (req, res) => {
-    const { userId, removalFor, number } = req.body;
+    const { userId, removalFor } = req.body;
+    console.log(req.body);
 
     // Validate inputs
-    if (!userId || !removalFor || !number) {
-        return res.status(400).json({ message: "User ID, reason for removal, and number are required." });
+    if (!userId || !removalFor) {
+        return res.status(400).json({ message: "User ID and reason for removal are required." });
     }
 
+    let selectQuery;
     let deleteQuery;
+    let number; // Initialize number variable
 
+    // Determine which query to run based on 'removalFor'
     if (removalFor === "bloodbank") {
+        selectQuery = `SELECT bloodBankMobileNumber FROM blood_bank_registration WHERE bloodBankId = ?;`;
         deleteQuery = `DELETE FROM blood_bank_registration WHERE bloodBankId = ?;`;
     } else if (removalFor === "donar") {
+        selectQuery = `SELECT donarNumber FROM donarregistration WHERE donarId = ?;`;
         deleteQuery = `DELETE FROM donarregistration WHERE donarId = ?;`;
     } else if (removalFor === "bloodrequest") {
+        selectQuery = `SELECT 
+        CASE 
+        WHEN br.requestedBy IS NOT NULL AND bb.bloodBankMobileNumber IS NOT NULL THEN bb.bloodBankMobileNumber
+        WHEN br.requestedBy IS NOT NULL AND a.adminNumber IS NOT NULL THEN a.adminNumber
+        END AS contactNumber
+        FROM bloodrequests br
+        LEFT JOIN blood_bank_registration bb ON br.requestedBy = bb.bloodBankId
+        LEFT JOIN admin a ON br.requestedBy = a.userId
+        WHERE br.requestId = ?;
+        `;
         deleteQuery = `DELETE FROM bloodrequests WHERE requestId = ?;`;
-        //         SELECT b.adminNumber 
-        // FROM bloodrequests br 
-        // JOIN admin b 
-        // ON br.requestedBy = b.userId 
-        // WHERE br.requestId = 'IF5C6U';
     } else {
         return res.status(400).json({ message: "Invalid removal category." });
     }
 
-    console.log("Executing Query:", deleteQuery, "with UserID:", userId);
+    console.log("Executing Select Query:", selectQuery, "with UserID:", userId);
 
     try {
-        // Execute the SQL query
-        conn.query(deleteQuery, [userId], async (err, result) => {
+        // First, select the number based on the category
+        conn.query(selectQuery, [userId], async (err, result) => {
             if (err) {
                 console.error("SQL Error:", err.sqlMessage || err);
-                return res.status(500).json({ message: "Database error occurred while removing the user." });
+                return res.status(500).json({ message: "Database error occurred while fetching the user number." });
             }
 
-            if (result.affectedRows > 0) {
-                console.log("User removed successfully:", userId);
+            if (result.length > 0) {
+                number = result[0].contactNumber; // Store the contact number from the result
+                console.log("Contact Number Retrieved:", number);
 
-                // Compose the SMS message
-                const message = `Your account has been removed from the Blood Donation Management System. Please contact support if you believe this was a mistake.`;
+                // Now, proceed with the DELETE query
+                console.log("Executing Delete Query:", deleteQuery, "with UserID:", userId);
 
-                try {
-                    // Send SMS notification
-                    const smsResults = await sendSMSNotifications([number], message);
-                    console.log("SMS notifications sent:", smsResults);
-
-                    // Check for SMS failures
-                    const failedSMS = smsResults.filter((result) => result.status === "failed");
-                    if (failedSMS.length > 0) {
-                        console.warn("Some SMS notifications failed:", failedSMS);
-                        return res.status(200).json({
-                            message: "User removed successfully, but some SMS notifications failed.",
-                            smsResults,
-                        });
+                conn.query(deleteQuery, [userId], async (err, result) => {
+                    if (err) {
+                        console.error("SQL Error:", err.sqlMessage || err);
+                        return res.status(500).json({ message: "Database error occurred while removing the user." });
                     }
 
-                    return res.status(200).json({
-                        message: "User removed successfully and SMS notifications sent.",
-                        smsResults,
-                    });
-                } catch (smsError) {
-                    console.error("Error sending SMS notifications:", smsError);
-                    return res.status(200).json({
-                        message: "User removed successfully, but SMS notifications failed.",
-                        smsError,
-                    });
-                }
+                    if (result.affectedRows > 0) {
+                        console.log("User removed successfully:", userId);
+
+                        // Compose the SMS message
+                        const message = `Your account has been removed from the Blood Donation Management System. Please contact support if you believe this was a mistake.`;
+
+                        try {
+                            // Send SMS notification
+                            const smsResults = await sendSMSNotifications(number, message);
+                            console.log("SMS notifications sent:", smsResults);
+
+                            // Check for SMS failures
+                            const failedSMS = smsResults.filter((result) => result.status === "failed");
+                            if (failedSMS.length > 0) {
+                                console.warn("Some SMS notifications failed:", failedSMS);
+                                return res.status(200).json({
+                                    message: "User removed successfully, but some SMS notifications failed.",
+                                    smsResults,
+                                });
+                            }
+
+                            return res.status(200).json({
+                                message: "User removed successfully and SMS notifications sent.",
+                                smsResults,
+                            });
+                        } catch (smsError) {
+                            console.error("Error sending SMS notifications:", smsError);
+                            return res.status(200).json({
+                                message: "User removed successfully, but SMS notifications failed.",
+                                smsError,
+                            });
+                        }
+                    } else {
+                        return res.status(404).json({ message: "User not found." });
+                    }
+                });
             } else {
                 return res.status(404).json({ message: "User not found." });
             }

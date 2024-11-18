@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 18, 2024 at 06:05 PM
+-- Generation Time: Dec 11, 2024 at 04:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,7 +62,7 @@ CREATE TABLE `bloodrequests` (
   `selectedDistrict` varchar(50) NOT NULL,
   `selectedTaluq` varchar(50) DEFAULT NULL,
   `selectedCity` varchar(50) NOT NULL,
-  `preferredDonorDistance` int(11) NOT NULL,
+  `preferredDonorDistance` varchar(15) NOT NULL,
   `additionalNotes` text DEFAULT NULL,
   `requestSend` timestamp NOT NULL DEFAULT current_timestamp(),
   `requestFulfilled` tinyint(4) DEFAULT 0,
@@ -75,11 +75,9 @@ CREATE TABLE `bloodrequests` (
 --
 
 INSERT INTO `bloodrequests` (`requestId`, `requestedBy`, `requestBloodBank`, `requestBlood`, `bloodQuantity`, `personNameToContact`, `personNumberToContact`, `urgencyLevel`, `selectedState`, `selectedDistrict`, `selectedTaluq`, `selectedCity`, `preferredDonorDistance`, `additionalNotes`, `requestSend`, `requestFulfilled`, `requestFullfilledBy`, `requestFulfilledOn`) VALUES
-('IF5C6U', 'admin', 'Government hospital Haveri', 'B+', 2, 'pavan', '7483022523', 'Routine', 'Karnataka', 'Haveri', 'Haveri', 'Devihosur', 0, '', '2024-11-17 12:37:23', 0, '', NULL),
-('FMUV75', 'admin', 'Government hospital Haveri', 'B+', 3, 'virat kohli', '7483022523', 'Routine', 'Karnataka', 'Haveri', 'Haveri', 'Devihosur', 0, '', '2024-11-17 12:44:15', 0, '', NULL),
-('WB6XD7', 'admin', 'Government hospital Haveri', 'B+', 6, 'pavan', '7483022523', 'Routine', 'Karnataka', 'Haveri', 'Haveri', 'Devihosur', 0, '', '2024-11-17 12:50:29', 0, '', NULL),
-('BQNJKG', 'admin', 'Government hospital Haveri', 'B+', 1, 'pavan', '7483022523', 'Critical', 'Karnataka', 'Haveri', 'Haveri', 'Devihosur', 0, '', '2024-11-17 12:52:00', 0, '', NULL),
-('G05RSI', '523GOV06', 'government hospital', 'B+', 3, 'pavan', '7483022523', 'Routine', 'Karnataka', 'Haveri', 'Haveri', 'Devihosur', 0, '', '2024-11-17 15:42:28', 1, '523BP890', '2024-11-17 15:43:20');
+('8PRRIU', '523GOV04', 'government hospital', 'B+', 3, 'pavan', '7483022523', 'Urgent', 'Karnataka', 'Haveri', 'Haveri', 'Haveri', '0', 'need within 6 hours', '2024-12-11 01:24:18', 0, '', NULL),
+('2HILIO', '523GOV04', 'government hospital', 'B+', 1, 'virat', '7483022523', 'Routine', 'Karnataka', 'Haveri', 'Haveri', 'Haveri', '0', 'please contact us as soon as possible', '2024-12-11 01:26:08', 1, '523BP763', '2024-12-11 01:26:57'),
+('IKC9ZF', 'admin', 'veerapus multispeciality hospital', 'B+', 2, 'virat', '7483022523', 'Critical', 'Karnataka', 'Haveri', 'Haveri', 'Haveri', 'withinCity', 'pls', '2024-12-11 01:52:46', 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -105,7 +103,7 @@ CREATE TABLE `blood_bank_registration` (
 --
 
 INSERT INTO `blood_bank_registration` (`bloodBankId`, `bloodBankName`, `bloodBankMobileNumber`, `bloodBankEmail`, `bloodBankState`, `bloodBankDistrict`, `bloodBankTaluq`, `bloodBankCity`, `bloodBankAddress`, `bloodBankPassword`) VALUES
-('523GOV06', 'government hospital', '7483022523', 'pavandvh27@gmail.com', 'Karnataka', 'Haveri', 'Haveri', 'Haveri', 'S/O: Chandrappa Siddeshwar Nagar At Devihosur Tq Haveri Devihosur Gundur Plot Haveri-Karnataka 581110', '12345696');
+('523GOV04', 'government hospital', '7483022523', 'pavandvh27@gmail.com', 'Karnataka', 'Haveri', 'Haveri', 'Haveri', 'ashwini nagar at devihosur', '12345696');
 
 -- --------------------------------------------------------
 
@@ -135,7 +133,7 @@ CREATE TABLE `donarregistration` (
 --
 
 INSERT INTO `donarregistration` (`donarId`, `donarName`, `donarNumber`, `donarEmail`, `donarAge`, `donarBloodGroup`, `donarGender`, `donarState`, `donarDistrict`, `donarTaluq`, `donarCity`, `donarAddress`, `donarPassword`, `donarAvailability`) VALUES
-('523BP890', 'Pavan Chandrappa Hottigoudra', '7483022523', 'pavandvh27@gmail.com', 21, 'B+', 'Male', 'Karnataka', 'Haveri', 'Haveri', 'Devihosur', 'ashwini nagar at devihosur', '12345678', 1);
+('523BP763', 'Pavan Chandrappa Hottigoudra', '7483022523', 'pavandvh27@gmail.com', 23, 'B+', 'Male', 'Karnataka', 'Haveri', 'Haveri', 'Haveri', 'ashwini nagar at haveri', '12345678', 1);
 
 --
 -- Indexes for dumped tables

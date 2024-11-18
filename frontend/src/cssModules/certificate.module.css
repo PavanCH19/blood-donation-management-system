@@ -1,91 +1,62 @@
+.mainContainer {
+    width: 1082px;
+    height: 753px;
+    padding: 20px;
+}
+
 .container {
-    font-family: 'Georgia', serif;
     border: 2px solid #e63946;
     border-radius: 15px;
-    width: 70%;
-    margin: 40px auto;
-    padding: 30px;
+}
+
+.container img {
+    width: 1078px;
+    height: 700px;
+    border-radius: 15px;
+    display: block;
+}
+
+.bodyText,
+.donarName {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
     text-align: center;
-    background: #fff5f0;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center text horizontally */
+    width: 70%;
+    /* Make sure text stays within the container width */
+    margin: 0;
+    padding: 0;
 }
 
-.header {
-    margin-bottom: 30px;
-}
-
-.title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #e63946;
-    letter-spacing: 3px;
-}
-
-.subtitle {
-    font-size: 20px;
-    color: #555;
-    font-style: italic;
-}
-
-.content {
-    margin: 20px 0;
-    text-align: left;
+.donarName {
+    font-size: 30px;
+    top: 19rem;
+    /* Adjust top position for donarName */
 }
 
 .bodyText {
+    top: 47%;
+    /* Adjust top position for bodyText */
+}
+
+.bodyId {
     font-size: 18px;
     color: #333;
-    margin-bottom: 20px;
     line-height: 1.8;
     letter-spacing: 0.5px;
 }
 
 .highlight {
     font-weight: bold;
-    color: #e63946;
+    color: #e63939;
 }
 
-.bloodDrop {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.bloodDropImage {
-    width: 80px;
-    height: auto;
-}
-
-.footer {
-    margin-top: 40px;
-    border-top: 2px dashed #e63946;
-    padding-top: 20px;
-}
-
-.signatureText {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.signatureBox {
-    margin-top: 20px;
-}
-
-.signature {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    border-bottom: 2px solid #e63946;
-    width: 60%;
-    margin: 0 auto;
-}
-
-.signatureLabel {
-    font-size: 16px;
-    color: #555;
-    margin-top: 5px;
-}
-
+/* Button Styling */
 .downloadButton {
     margin-top: 20px;
     background-color: #e63946;
@@ -100,4 +71,30 @@
 
 .downloadButton:hover {
     background-color: #c72d35;
+}
+
+.certifiedBy,
+.date {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    position: absolute;
+}
+
+.certifiedBy {
+    top: 75%;
+    left: 66%
+}
+
+.date {
+    top: 75%;
+    left: 22%;
 }

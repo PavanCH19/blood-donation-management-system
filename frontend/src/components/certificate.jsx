@@ -22,6 +22,7 @@ const Certificate = () => {
             })
                 .then((response) => {
                     setDonorName(response.data.donorName); // Assuming the backend sends { donorName }
+                    //handleDownload();
                 })
                 .catch((error) => console.error("Error fetching donor details:", error));
         }
@@ -43,10 +44,10 @@ const Certificate = () => {
             filename: "certificate-of-appreciation.pdf",
             html2canvas: { scale: 2 }, // Optional: improve PDF resolution
             jsPDF: {
-                orientation: "landscape", // Explicitly set portrait orientation
+                orientation: "landscape", // Explicitly set landscape orientation
                 unit: "mm",
                 format: "a4", // Ensure A4 format
-                margin: [5, 5, 5, 5], // Optional: add margins if necessary
+                //margin: [20, 20, 20, 20],// Optional: add margins if necessary
             },
         };
 
@@ -56,10 +57,15 @@ const Certificate = () => {
             .save(); // Download the PDF
     };
 
+    const getIndianTime = () => {
+        const indianTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+        return indianTime;
+    };
+
     return (
         <>
-            <div ref={certificateRef} className={styles.container}>
-                <div className={styles.header}>
+            <div ref={certificateRef} className={styles.mainContainer}>
+                {/* <div className={styles.header}>
                     <h1 className={styles.title}>Certificate of Appreciation</h1>
                     <p className={styles.subtitle}>Presented by [Your Organization Name]</p>
                 </div>
@@ -71,6 +77,7 @@ const Certificate = () => {
                             className={styles.bloodDropImage}
                         />
                     </div>
+                    (Request ID : ) on    . Your selfless act of donating    Units of    blood has helped to meet critical needs and save lives.
                     <p className={styles.bodyText}>
                         This certificate is proudly presented to{" "}
                         <span className={styles.highlight}>{donorName}</span> (Request ID:{" "}
@@ -97,8 +104,34 @@ const Certificate = () => {
                         <p className={styles.signatureLabel}>[Authorized Persons Name]</p>
                         <p className={styles.signatureLabel}>[Designation]</p>
                     </div>
+                </div> */}
+                <div className={styles.container}>
+                    <img src="../../public/certificate.jpg" alt="" />
+                    <div className={styles.donarName}>
+                        <span className={styles.highlight}>{donorName}</span>
+                    </div>
+                    <div className={styles.bodyText}>
+                        Donated on {" "}
+                        <span className={styles.highlight}>{date}</span> in the city of{" "}
+                        <span className={styles.highlight}>{city}</span>.
+                        Your selfless act of donating{" "}
+                        <span className={styles.highlight}>{bloodQuantity}</span> of{" "}
+                        <span className={styles.highlight}>{bloodType}</span> blood to{" "}
+                        <span className={styles.highlight}>{hospitalName}</span> has helped meet
+                        critical needs and save lives.
+                        <div className={styles.bodyId}>(Request ID:{" "}
+                            <span className={styles.highlight}>{requestId}</span>)
+                        </div>
+                    </div>
                 </div>
-
+                <div className={styles.date}>
+                    <span className={styles.highlight}>{getIndianTime()}</span>
+                    <span><u>Date</u></span>
+                </div>
+                <div className={styles.certifiedBy}>
+                    <div className={styles.highlight}>{hospitalName}</div>
+                    <div><u>Certified By</u></div>
+                </div>
             </div>
             <button onClick={handleDownload} className={styles.downloadButton}>
                 Download Certificate

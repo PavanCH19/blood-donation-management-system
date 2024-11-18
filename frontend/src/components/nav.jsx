@@ -54,6 +54,7 @@ const Nav = ({ user, handleLogout }) => {
                     pointer-events: auto;
                     margin-left: 25px;
                     touch-action: manipulation;
+                    
                 }
 
                 .icon-bar {
@@ -182,7 +183,7 @@ const Nav = ({ user, handleLogout }) => {
                 padding: 0;
                 pointer-events: auto; 
                 cursor: pointer;
-                margin-left : 20px
+                margin-left : 20px;
             }
 
             .details{
