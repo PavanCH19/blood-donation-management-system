@@ -1,8 +1,20 @@
 /* General Styling */
+.loginbody {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+
 .loginContainer {
-    width: 320px;
+    width: 400px;
+    /* Increased width */
     background: #fff;
-    padding: 20px;
+    padding: 30px;
+    /* Increased padding */
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -12,16 +24,20 @@
 .tabButtons {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    /* Increased margin */
 }
 
 .tabButtons label {
     cursor: pointer;
-    padding: 10px 18px;
+    padding: 12px 22px;
+    /* Increased padding */
     border-radius: 20px;
     background-color: #e0e0e0;
     color: #555;
     font-weight: bold;
+    font-size: 18px;
+    /* Increased font size */
     transition: 0.3s;
 }
 
@@ -34,7 +50,7 @@
 .forms {
     display: flex;
     transition: transform 0.3s ease;
-    width: 200%;
+    width: 210%;
     /* Double the width for sliding */
 }
 
@@ -57,30 +73,45 @@
 .form {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    padding-right: 18px;
+    /* Slightly increased width for more space */
 }
 
 .form label {
-    margin-top: 10px;
+    margin-top: 12px;
+    /* Increased margin */
+    font-size: 16px;
+    /* Larger font size */
 }
 
 .form input {
-    padding: 10px;
-    margin-top: 5px;
+    padding: 14px;
+    /* Increased padding */
+    margin-top: 8px;
+    /* Increased margin */
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
+    /* Slightly more rounded corners */
+    font-size: 16px;
+    /* Increased font size */
 }
 
 .submitButton {
-    padding: 12px;
+    padding: 14px;
+    /* Increased padding */
     background-color: #6e8efb;
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 8px;
+    /* More rounded button */
+    font-size: 18px;
+    /* Larger font size */
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 15px;
+    margin-top: 20px;
+    /* Increased margin */
 }
 
 .submitButton:hover {
@@ -89,19 +120,24 @@
 
 .error {
     color: red;
-    font-size: 12px;
-    margin-top: 5px;
+    font-size: 14px;
+    /* Larger error text */
+    margin-top: 8px;
 }
 
 .extraLinks {
-    margin-top: 15px;
+    margin-top: 20px;
+    /* Increased margin */
     text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 .extraLinks a {
     color: #6e8efb;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
+    /* Increased font size */
 }
 
 .extraLinks a:hover {

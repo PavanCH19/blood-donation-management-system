@@ -2,7 +2,10 @@ const { requestDonarlogin, requestBloodBanklogin, requestUserDetails, requestlog
 const { requestPasswordReset, resetPassword } = require('./components/resetPassword.js');
 const { donarRegistration, bloodBankRegistration } = require("./components/registration.js");
 const { bloodRequestVerify, sendBloodRequest } = require("./components/bloodRequest.js");
-const { updateAvailability, upcomingRequest } = require("./components/userDashboard.js");
+const { updateAvailability, upcomingRequest, requestFulfilled, fulfillRequest } = require("./components/userDashboard.js");
+const { updateDonarRegistration, updateBloodBank } = require('./components/updateRegistration.js');
+const { getDonarName } = require('./components/certificate.js');
+const { getDonarDetails, getBloodBankDetails, getOnGoingRequests, getRequestCompleted, updateAdminDetails, removedByAdmin } = require('./components/admin.js');
 
 const express = require('express');
 const cors = require('cors');
@@ -42,6 +45,23 @@ app.post('/send-blood-request', sendBloodRequest);
 // userDashboard endpoint
 app.post('/updateAvailability', updateAvailability);
 app.get('/upcomingRequests', upcomingRequest);
+app.get('/requestFullFilled', requestFulfilled);
+app.post('/fulfillRequest', fulfillRequest);
+
+//update registration
+app.post('/donarUpdate', updateDonarRegistration);
+app.post('/bloodBankUpdate', updateBloodBank);
+
+//certificate 
+app.post('/donarName', getDonarName);
+
+//admin endpoints
+app.get('/donarDetails', getDonarDetails);
+app.get('/bloodBankDetails', getBloodBankDetails);
+app.get('/onGoingRequests', getOnGoingRequests);
+app.get('/requestCompleted', getRequestCompleted);
+app.post('/updateAdmin', updateAdminDetails);
+app.post('/removedByAdmin', removedByAdmin);
 
 // Start server
 app.listen(port, () => {

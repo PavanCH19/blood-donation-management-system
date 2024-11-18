@@ -7,7 +7,7 @@ const nav = ({ userType, handleLogout }) => {
                 <li>
                     <Link to="/blood-donation-management-system">Go to Home</Link>
                 </li>
-                {userType === 'bloodbank' ? (
+                {userType === 'bloodbank' || userType === "admin" ? (
                     <li>
                         <Link to="/blood-donation-management-system/blood-request">Request blood</Link>
                     </li>

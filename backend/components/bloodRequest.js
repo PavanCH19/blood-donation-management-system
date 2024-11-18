@@ -1,10 +1,11 @@
 const conn = require("../connection.js");
 const { twilioClient, twilioNumber } = require("../twilioConfig.js");
+const { sendSMSNotifications } = require("../services/smsServices.js");
 
 exports.bloodRequestVerify = (req, res) => {
     const { requestBlood, selectedCity, selectedTaluq, selectedDistrict, selectedState, preferredDonorDistance } = req.body;
 
-    let query = "SELECT COUNT(*) AS donorCount FROM donarregistration WHERE donarBloodGroup = ?";
+    let query = "SELECT COUNT(*) AS donorCount FROM donarregistration WHERE donarBloodGroup = ? AND donarAvailability = 1";
     const params = [requestBlood];
 
     if (preferredDonorDistance === "withinCity") {
@@ -34,10 +35,11 @@ exports.bloodRequestVerify = (req, res) => {
     });
 };
 
+
 exports.sendBloodRequest = (req, res) => {
     const data = req.body;
-
-    let donorQuery = "SELECT donarNumber FROM donarregistration WHERE donarBloodGroup = ?";
+    console.table(data);
+    let donorQuery = "SELECT donarNumber FROM donarregistration WHERE donarBloodGroup = ? AND donarAvailability = 1";
     const params = [data.requestBlood];
 
     if (data.preferredDonorDistance === "withinCity") {
@@ -65,71 +67,37 @@ exports.sendBloodRequest = (req, res) => {
             return res.status(404).json({ message: "No donors found for the specified criteria." });
         }
 
-        console.log(`Found ${donorResults.length} donors to notify.`);
+        const donorNumbers = donorResults.map((donor) => donor.donarNumber);
 
-        // Create an array to hold the SMS promises
-        const smsPromises = donorResults.map(donor => {
-            const phoneNumber = donor.donarNumber;
-            const formattedNumber = "+91" + phoneNumber; // Append country code
+        const smsMessage = `
+        Dear Donor,
+        We urgently require ${data.bloodQuantity} units of ${data.requestBlood} blood for ${data.requestBloodBank}.
+        Please reach out to ${data.personNameToContact} at ${data.personNumberToContact} if you are able to assist. This request is marked as ${data.urgencyLevel}.
+        Thank you for your support in saving lives!
+        Additional notes: ${data.additionalNotes || 'None'}.`;
 
-            console.log(`Sending SMS to: ${formattedNumber}`);
 
-            // Send SMS and return the promise
-            return twilioClient.messages.create({
-                body: data.message,
-                from: twilioNumber,
-                to: formattedNumber
-            })
-                .then(message => {
-                    console.log(`SMS sent successfully to ${formattedNumber}: SID ${message.sid}`);
-                    return message; // Return the message object for further processing
-                })
-                .catch(error => {
-                    console.error(`Failed to send SMS to ${formattedNumber}:`, error.message);
-                    throw error; // Rethrow to be caught in Promise.all
-                });
-        });
+        sendSMSNotifications(donorNumbers, smsMessage)
+            .then((results) => {
+                const successCount = results.filter((r) => r.status === "fulfilled").length;
+                const failureCount = results.length - successCount;
 
-        // Wait for all SMS sending promises to complete
-        Promise.all(smsPromises)
-            .then(results => {
-                const successCount = results.length; // All promises resolved successfully
-                console.log(`Total SMS notifications sent: ${successCount}`);
+                console.log(`Total SMS sent: ${successCount}, Failed: ${failureCount}`);
 
-                // Insert the blood request into the database
                 const insertQuery = `
                     INSERT INTO bloodrequests (
-                        requestId,
-                        requestBloodBank,
-                        requestBlood,
-                        bloodQuantity,
-                        personNameToContact,
-                        personNumberToContact,
-                        urgencyLevel,
-                        selectedState,
-                        selectedDistrict,
-                        selectedTaluq,
-                        selectedCity,
-                        preferredDonorDistance,
-                        additionalNotes,
-                        requestSend
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp())
+                        requestId, requestedBy, requestBloodBank, requestBlood, bloodQuantity,
+                        personNameToContact, personNumberToContact, urgencyLevel, selectedState,
+                        selectedDistrict, selectedTaluq, selectedCity, preferredDonorDistance,
+                        additionalNotes, requestSend
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp())
                 `;
 
                 const insertParams = [
-                    data.requestId,
-                    data.requestBloodBank,
-                    data.requestBlood,
-                    data.bloodQuantity,
-                    data.personNameToContact,
-                    data.personNumberToContact,
-                    data.urgencyLevel,
-                    data.selectedState,
-                    data.selectedDistrict,
-                    data.selectedTaluq,
-                    data.selectedCity,
-                    data.preferredDonorDistance,
-                    data.additionalNotes
+                    data.requestId, data.userId, data.requestBloodBank, data.requestBlood,
+                    data.bloodQuantity, data.personNameToContact, data.personNumberToContact,
+                    data.urgencyLevel, data.selectedState, data.selectedDistrict,
+                    data.selectedTaluq, data.selectedCity, data.preferredDonorDistance, data.additionalNotes,
                 ];
 
                 conn.query(insertQuery, insertParams, (insertError, insertResults) => {
@@ -141,14 +109,14 @@ exports.sendBloodRequest = (req, res) => {
                     console.log(`Blood request inserted successfully with ID: ${insertResults.insertId}`);
                     res.status(200).json({
                         message: `${successCount} SMS notifications sent successfully!`,
-                        requestId: insertResults.insertId, // Optionally return the ID of the inserted request
-                        errors: donorResults.length - successCount ? `${donorResults.length - successCount} errors occurred while sending SMS notifications.` : undefined
+                        requestId: insertResults.insertId,
+                        errors: failureCount ? `${failureCount} errors occurred while sending SMS notifications.` : undefined,
                     });
                 });
             })
-            .catch(smsError => {
-                console.error("Error sending SMS:", smsError);
-                res.status(500).json({ message: "Failed to send SMS notifications to donors." });
+            .catch((error) => {
+                console.error("Error sending SMS:", error);
+                res.status(500).json({ message: "Failed to send SMS notifications." });
             });
     });
 };

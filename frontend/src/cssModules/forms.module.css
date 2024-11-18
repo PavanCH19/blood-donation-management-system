@@ -1,0 +1,307 @@
+/* Wrapper for donor availability and request summary */
+.containerbody {
+    width: 95%;
+    margin-left: 20px;
+}
+
+.container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 40px;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.errorshow {
+    color: red;
+    font-size: 15px;
+}
+
+.submitBtn {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Hover effect */
+.submitBtn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+    /* Slightly stronger shadow on hover */
+}
+
+
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Container for the checkbox and label */
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    /* Align checkbox and label vertically */
+    gap: 8px;
+    /* Add space between checkbox and label */
+    font-size: 16px;
+}
+
+/* Styling for the checkbox */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #007BFF;
+    /* Change the color of the checkbox */
+    cursor: pointer;
+    margin: 0;
+    /* Remove any default margins */
+}
+
+/* Styling for the label */
+.inputLabels {
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+/* Link styling */
+.inputLabels a {
+    color: #007BFF;
+    /* Blue color for the link */
+    text-decoration: none;
+    /* Remove underline from the link */
+    font-weight: bold;
+    margin-left: 5px;
+    transition: color 0.3s ease;
+}
+
+.inputLabels a:hover {
+    color: #0056b3;
+    /* Darker blue on hover */
+}
+
+/* Focused checkbox styling */
+input[type="checkbox"]:focus {
+    outline: 2px solid #007BFF;
+    /* Add a focus outline for accessibility */
+    outline-offset: 2px;
+}
+
+.genderSelection div {
+    display: flex;
+    gap: 20px;
+    /* Space between radio button options */
+    align-items: center;
+    /* Vertically align the radio buttons and labels */
+}
+
+/* Styling for the radio button inputs */
+.genderSelection input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    /* Space between radio button and label */
+    cursor: pointer;
+}
+
+/* Styling for the radio button labels */
+.genderSelection label input[type="radio"]+span {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+
+.donorAvailability {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Aligning the content to the center */
+    justify-content: center;
+}
+
+/* Title styling */
+.donorAvailability h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    /* Adjusting spacing for better alignment */
+    text-align: center;
+    /* Centering the title */
+}
+
+/* Donor available section */
+.donorAvailable {
+    background-color: #e7f9e7;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #d4e9d4;
+    width: 100%;
+    /* Ensures it spans the full width */
+    max-width: 750px;
+    /* Limiting max width for better responsiveness */
+    text-align: center;
+    /* Center-aligning the text */
+}
+
+.donorAvailable p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.donorAvailable strong {
+    color: #28a745;
+}
+
+/* Donor not available section */
+.donorNotAvailable {
+    background-color: #f8d7da;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    width: 100%;
+    /* Ensures it spans the full width */
+    max-width: 750px;
+    /* Limiting max width for better responsiveness */
+    text-align: center;
+    /* Center-aligning the text */
+}
+
+.donorNotAvailable p {
+    font-size: 16px;
+    color: #721c24;
+    line-height: 1.6;
+}
+
+.donorNotAvailable strong {
+    color: #721c24;
+}
+
+/* Request summary section */
+.requestSummary {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 10px;
+    width: 100%;
+    /* Ensures it spans the full width */
+    max-width: 750px;
+    /* Limiting max width for better responsiveness */
+    text-align: center;
+    /* Center-aligning the text */
+}
+
+.requestSummary p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.requestSummary strong {
+    color: #856404;
+}
+
+.requestSummary em {
+    font-style: italic;
+    color: #856404;
+}
+
+/* Submit button styling */
+.donorAvailability button {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    /* Ensuring the button text is centered */
+    width: 100%;
+    /* Making the button span the full width */
+    max-width: 300px;
+    /* Limiting the max width */
+}
+
+/* Submit button hover effect */
+.donorAvailability button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Submit button active effect */
+.donorAvailability button:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .donorAvailability {
+        padding: 15px;
+    }
+
+    .donorAvailable,
+    .donorNotAvailable,
+    .requestSummary {
+        padding: 15px;
+    }
+
+    .donorAvailability button {
+        width: 100%;
+        padding: 14px;
+    }
+}

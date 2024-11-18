@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import styles from "../cssModules/forgetPassword.module.css";
 
 function ResetPassword() {
     const [formData, setFormData] = useState({
@@ -67,7 +68,7 @@ function ResetPassword() {
     };
 
     return (
-        <div className="reset-form">
+        <div className={styles['reset-form']}>
             <h2>Request Password Reset</h2>
             <p>Please enter your User ID and select how you would like to receive your OTP.</p>
             <input
@@ -76,9 +77,10 @@ function ResetPassword() {
                 placeholder="User ID"
                 value={formData.userId}
                 onChange={handleChange}
+                className={styles['input']}
             />
-            <button onClick={() => handleRequestOTP('email')}>Send OTP to Email</button>
-            <button onClick={() => handleRequestOTP('mobile')}>Send OTP to Phone Number</button>
+            <button onClick={() => handleRequestOTP('email')} className={styles['button']} >Send OTP to Email</button>
+            <button onClick={() => handleRequestOTP('mobile')} className={styles['button']} >Send OTP to Phone Number</button>
 
             {isToken && (
                 <>
@@ -90,6 +92,7 @@ function ResetPassword() {
                         placeholder="Token"
                         value={formData.token}
                         onChange={handleChange}
+                        className={styles['input']}
                     />
                 </>
             )}
@@ -104,6 +107,7 @@ function ResetPassword() {
                         placeholder="OTP"
                         value={formData.otp}
                         onChange={handleChange}
+                        className={styles['input']}
                     />
                 </>
             )}
@@ -116,8 +120,9 @@ function ResetPassword() {
                         placeholder="New Password"
                         value={formData.newPassword}
                         onChange={handleChange}
+                        className={styles['input']}
                     />
-                    <button onClick={handleResetPassword}>Reset Password</button>
+                    <button onClick={handleResetPassword} className={styles['button']} >Reset Password</button>
                 </>
             )}
             <p>If you have any issues, please contact support.</p>

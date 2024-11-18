@@ -2,7 +2,8 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const conn = require('../connection.js');
 const otpGenerator = require("otp-generator");
-const { twilioClient, twilioNumber } = require("../twilioConfig.js");
+const { sendSMSNotifications } = require('../services/smsServices.js');
+
 
 const tokenMap = new Map(); // Temporarily store reset tokens
 const otpMap = new Map(); // Temporarily store OTPs
@@ -51,22 +52,21 @@ const generateAndSendOTP = (userId, mobile, res) => {
 
         console.log(`Sending OTP to ${mobile}. OTP: ${otp}, Expiration: ${new Date(expiration)}`);
 
-        // Send the OTP using Twilio
-        twilioClient.messages.create({
-            body: `Your password reset OTP is: ${otp}`,
-            to: mobile,
-            from: twilioNumber
-        })
-            .then(() => {
-                console.log(`OTP sent to ${mobile}. OTP: ${otp}, Expiration: ${new Date(expiration)}`);
-                res.json({ message: 'OTP sent to mobile' }); // Send response after OTP is sent
+        // Send OTP using sendSMSNotifications function
+        sendSMSNotifications([mobile], `Your password reset OTP is: ${otp}`)
+            .then((results) => {
+                const successCount = results.filter((r) => r.status === "success").length;
+                const failureCount = results.length - successCount;
+
+                console.log(`Total SMS sent: ${successCount}, Failed: ${failureCount}`);
+                res.json({ message: 'OTP sent to mobile' });  // Send success response after OTP is sent
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error sending OTP:', error);
                 res.status(500).json({ message: 'Failed to send OTP' });
             });
     } catch (error) {
-        console.log(error);
+        console.error('Error generating OTP:', error);
         res.status(500).json({ message: 'Server error while generating OTP' });
     }
 };
@@ -85,7 +85,7 @@ exports.requestPasswordReset = (req, res) => {
     } else {
         return res.status(400).json({ message: 'Invalid userType' });
     }
-
+    console.log(query);
     conn.query(query, [userId], (error, data) => {
         if (error) {
             console.error('Error fetching user data:', error);
@@ -94,13 +94,13 @@ exports.requestPasswordReset = (req, res) => {
         if (data.length === 0) {
             return res.status(404).json({ message: 'User not found' });
         }
-
+        console.log(data[0] + "hel");
         if (userType === "donor") {
             email = data[0].donarEmail;
-            mobile = "+91" + data[0].donarNumber;
+            mobile = data[0].donarNumber;
         } else if (userType === "bloodBank") {
             email = data[0].bloodBankEmail;
-            mobile = "+91" + data[0].bloodBankMobileNumber;
+            mobile = data[0].bloodBankMobileNumber;
         }
 
         if (method === "email") {

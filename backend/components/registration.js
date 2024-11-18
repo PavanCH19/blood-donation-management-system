@@ -1,4 +1,5 @@
 const conn = require('../connection.js');
+const { sendSMSNotifications } = require('../services/smsServices.js');
 
 exports.donarRegistration = (req, res) => {
     const formData = req.body;
@@ -35,7 +36,17 @@ exports.donarRegistration = (req, res) => {
                         console.error('Error inserting donor data:', error);
                         res.status(500).send('Error inserting donor data');
                     } else {
-                        res.status(200).json({ message: 'Donor data inserted successfully' });
+                        const smsdata = `Your registered unique ID is ${formData.uniqueId}`;
+                        sendSMSNotifications([formData.mobileNumber], smsdata)
+                            .then(() => {
+                                res.status(200).json({
+                                    message: 'Donor data inserted successfully, and your ID has been sent to your mobile number.'
+                                });
+                            })
+                            .catch((error) => {
+                                console.error('Error sending SMS:', error);
+                                res.status(500).json({ message: 'Failed to send SMS' });
+                            });
                     }
                 });
             }
@@ -75,7 +86,17 @@ exports.bloodBankRegistration = (req, res) => {
                         console.error('Error inserting blood bank data:', error);
                         res.status(500).send('Error inserting blood bank data');
                     } else {
-                        res.status(200).json({ message: 'Blood bank data inserted successfully' });
+                        const smsdata = `Your registered unique ID is ${formData.uniqueId}`;
+                        sendSMSNotifications([formData.mobileNumber], smsdata)
+                            .then(() => {
+                                res.status(200).json({
+                                    message: 'Blood bank data inserted successfully, and your ID has been sent to your mobile number.'
+                                });
+                            })
+                            .catch((error) => {
+                                console.error('Error sending SMS:', error);
+                                res.status(500).json({ message: 'Failed to send SMS' });
+                            });
                     }
                 });
             }
