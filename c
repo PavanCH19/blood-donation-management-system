@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Blood Donation Management System: Theoretical Explanation
 
 #### **Home Page Features**
@@ -91,3 +92,9 @@ The **Home Page** serves as the primary gateway for all users, featuring:
 4. **Data Management:** Simplified tracking of requests, donations, and users.
 
 Would you like code snippets for any specific features or modules?
+=======
+apdate query in requested by in bloodrequest component add time 
+userDashboards
+Apdate query in sending sms only on active members 
+
+>>>>>>> 78e93ecd47d9a274818cbaada3f16e4bb0a2db66
