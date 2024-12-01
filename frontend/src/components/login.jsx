@@ -55,6 +55,9 @@ const Login = () => {
 
     return (
         <div className={styles.loginbody}>
+            <div className={styles.left}>
+                <img src="../../public/left.png" alt="left" />
+            </div>
             <div className={styles.loginContainer}>
                 {/* Tab Buttons */}
                 <div className={styles.tabButtons}>
@@ -138,6 +141,9 @@ const Login = () => {
                         </form>
                     </div>
                 </div>
+            </div>
+            <div className={styles.right}>
+                <img src="../../public/right.png" alt="left" />
             </div>
         </div>
     );

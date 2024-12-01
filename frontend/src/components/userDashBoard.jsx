@@ -4,6 +4,9 @@ import axios from 'axios';
 import styles from "../cssModules/userDashboard.module.css";
 import BloodRequestData from './bloodRequestData';
 import BloodRequestFullfilled from './bloodRequestFulfilled';
+import Nav from './nav';
+import Footer from './footer';
+
 
 const UserDashboard = () => {
     const [user, setUser] = useState(() => {
@@ -51,7 +54,7 @@ const UserDashboard = () => {
     };
 
     const handleEditProfile = () => {
-        if (user.userType === "Donar") {
+        if (user.userType === "donar") {
             navigate("/blood-donation-management-system/donar-registration", { state: { user: user, isEditing: true } });
         }
         else {
@@ -109,6 +112,7 @@ const UserDashboard = () => {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 25px;
             border-left: 5px solid #d32f2f;
+            
         }
 
         .profile-summary h2 {
@@ -119,6 +123,7 @@ const UserDashboard = () => {
         .profile-summary p {
             font-size: 1.2rem;
             color: #555;
+            text-align : left;
         }
 
         .availabilityToggle {
@@ -219,35 +224,18 @@ const UserDashboard = () => {
             text-decoration: underline;
         }
 
-        .settings button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+        .settings {
+            display : flex;
+            flex-direction : column;
+            justify-content : center;
+            align-content : center; 
+            margin-top : 2rem;
         }
 
-        .settings button:hover {
-            background-color: #0056b3;
-        }
+        
 
-        /* Logout Button */
-        button.logout {
-            background-color: #f44336;
-            color: white;
-            padding: 12px 20px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 30px;
-            transition: background-color 0.3s ease;
-        }
 
-        button.logout:hover {
-            background-color: #e53935;
-        }
+        
 
         /* Card Shadow & Hover */
         .card {
@@ -329,12 +317,21 @@ const UserDashboard = () => {
                     background-color: #d32f2f;
                     transform: scale(1);
                 }
+            
+
+            .btns{
+                display : flex;
+                flex-direction : row;
+                justify-content : space-between;
+                align-items : center;
+                padding : 0 5rem 5rem 5rem;
+            }
+
+            
     `}
             </style>
 
-
-            <h1>Welcome, {user.donarName || user.bloodBankName}</h1>
-
+            <Nav user={user} handleLogout={handleLogout} />
 
 
             {/* Profile Section */}
@@ -377,9 +374,14 @@ const UserDashboard = () => {
             {/* Edit Profile & Settings Section */}
             <section className="settings">
                 <h2>Settings</h2>
-                <button onClick={handleEditProfile}> Edit Profile </button>
-                <button className="logout" onClick={handleLogout}>Logout</button>
+                <div className="btns">
+                    <button className={styles.edit} onClick={handleEditProfile} > Edit Profile </button>
+                    <button className={styles.logout} onClick={handleLogout}>Logout</button>
+                </div>
+
             </section>
+
+            <Footer />
         </>
     );
 };

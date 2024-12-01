@@ -36,3 +36,55 @@
 .active .toggleCircle {
     transform: translateX(25px);
 }
+
+/* Logout Button */
+.logout {
+    background-color: rgb(255, 21, 0);
+    /* Red for logout */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    /* White text for contrast */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.logout:hover {
+    background-color: #d41600;
+    /* Darker red for hover */
+    transform: scale(1.05);
+}
+
+.logout:focus {
+    outline: 3px solid #ff5c00;
+    /* Focus outline with orange hue */
+}
+
+/* Edit Button - Styled Like Logout Button */
+.edit {
+    background-color: rgb(3, 78, 189);
+    /* Red like logout */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    /* White text for contrast */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit:hover {
+    background-color: #032bda;
+    /* Darker red for hover */
+    transform: scale(1.05);
+}
+
+.edit:focus {
+    outline: 3px solid #1e00ff;
+    /* Focus outline with orange hue */
+}

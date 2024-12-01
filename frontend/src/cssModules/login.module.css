@@ -6,7 +6,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f7f7f7;
+    background-color: #f0f8ff;
+    /* Light blue background for a calm effect */
 }
 
 .loginContainer {
@@ -18,6 +19,8 @@
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    border: 1px solid #d9534f;
+    /* Border color to reflect the blood donation theme */
 }
 
 /* Tab Buttons */
@@ -33,8 +36,9 @@
     padding: 12px 22px;
     /* Increased padding */
     border-radius: 20px;
-    background-color: #e0e0e0;
-    color: #555;
+    background-color: #d9534f;
+    /* Red color associated with blood */
+    color: #fff;
     font-weight: bold;
     font-size: 18px;
     /* Increased font size */
@@ -42,7 +46,8 @@
 }
 
 .tabButtons .active {
-    background-color: #6e8efb;
+    background-color: #c9302c;
+    /* Darker red for active state */
     color: #fff;
 }
 
@@ -83,6 +88,8 @@
     /* Increased margin */
     font-size: 16px;
     /* Larger font size */
+    color: #333;
+    /* Dark color for better readability */
 }
 
 .form input {
@@ -100,7 +107,8 @@
 .submitButton {
     padding: 14px;
     /* Increased padding */
-    background-color: #6e8efb;
+    background-color: #d9534f;
+    /* Red button for donation theme */
     color: white;
     border: none;
     border-radius: 8px;
@@ -115,7 +123,8 @@
 }
 
 .submitButton:hover {
-    background-color: #5a7ae8;
+    background-color: #c9302c;
+    /* Darker red on hover */
 }
 
 .error {
@@ -134,7 +143,8 @@
 }
 
 .extraLinks a {
-    color: #6e8efb;
+    color: #d9534f;
+    /* Red links for a consistent theme */
     text-decoration: none;
     font-size: 16px;
     /* Increased font size */
@@ -142,4 +152,23 @@
 
 .extraLinks a:hover {
     text-decoration: underline;
+}
+
+/* Additional Customizations for Blood Donation Forms */
+h1 {
+    font-size: 24px;
+    text-align: center;
+    color: #d9534f;
+    /* Red color for the heading */
+}
+
+p {
+    font-size: 14px;
+    text-align: center;
+    color: #777;
+}
+
+.left img,
+.right img {
+    height: 35rem;
 }

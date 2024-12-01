@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Nav from "./nav";
+import SlidingImg from './slidingImg';
+import Footer from './footer';
 
 
 const Home = () => {
@@ -40,9 +42,10 @@ const Home = () => {
 
     return (
         <div>
-            <Nav userType={user?.userType} handleLogout={handleLogout} />
+
 
             <div className="App">
+
                 <style>{`
                     * {
                         margin: 0;
@@ -60,12 +63,15 @@ const Home = () => {
                         color: #fff;
                         padding: 1rem 0;
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: end;
                         align-items: center;
                         position: sticky;
                         top: 0;
-                        z-index: 1000;
+                        z-index: 1;
+                        border-radius : 10px;
+                        margin : 0 10px 0 10px;
                     }
+                    
                     header h1 {
                         margin-left: 1rem;
                         font-size: 2rem;
@@ -87,42 +93,13 @@ const Home = () => {
                     header nav ul li a:hover {
                         text-decoration: underline;
                     }
-                    .hero {
-                        height: 500px;
-                        background-image: url('https://via.placeholder.com/1200x500/ff0000/ffffff?text=');
-                        background-size: cover;
-                        background-position: center;
-                        text-align: center;
-                        color: #fff;
-                        position: relative;
-                    }
-                    .hero h2 {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        font-size: 3rem;
-                        font-weight: 700;
-                        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-                        color: white;
-                    }
-                    .hero button {
-                        position: absolute;
-                        top: 65%;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        padding: 0.8rem 1.5rem;
-                        background-color: #c0392b;
-                        border: none;
-                        color: #fff;
-                        font-size: 1rem;
-                        border-radius: 5px;
-                        cursor: pointer;
-                    }
+                
                     .mission {
                         padding: 4rem 2rem;
                         background-color: #ffe6e6;
                         text-align: center;
+                        // border-radius : 10px;
+                        margin : 0 10px 0 10px;
                     }
                     .mission h2 {
                         font-size: 2.5rem;
@@ -138,6 +115,8 @@ const Home = () => {
                         padding: 4rem 2rem;
                         background-color: #f8f8f8;
                         text-align: center;
+                        // border-radius : 10px;
+                        margin : 0 10px 0 10px;
                     }
                     .why-donate h2 {
                         font-size: 2.5rem;
@@ -201,17 +180,7 @@ const Home = () => {
                     .contact button:hover {
                         background-color: #e74c3c;
                     }
-                    footer {
-                        background-color: #333;
-                        color: #fff;
-                        text-align: center;
-                        padding: 2rem;
-                    }
-                    footer a {
-                        color: #e74c3c;
-                        text-decoration: none;
-                    }
-
+                    
                     /* Donor Testimonials CSS */
                     .donor-testimonials {
                         padding: 4rem 2rem;
@@ -322,10 +291,12 @@ const Home = () => {
                             width: 100%;
                         }
                     }
- .notifications {
+                    .notifications {
                         padding: 4rem 2rem;
                         background-color: #ffe6e6;
                         text-align: center;
+                        // border-radius : 10px;
+                        margin : 0 10px 0 10px;
                     }
                     .notifications h2 {
                         font-size: 2.5rem;
@@ -357,9 +328,10 @@ const Home = () => {
                         color: #555;
                     }
                 `}</style>
+                <Nav user={user} handleLogout={handleLogout} />
 
                 <header>
-                    <h1>Blood Donation</h1>
+                    {/* <h1>Blood Donation</h1> */}
                     <nav>
                         <ul>
                             <li><a href="#about">About Us</a></li>
@@ -373,35 +345,7 @@ const Home = () => {
                     </nav>
                 </header>
 
-                <section className="hero">
-                    <h2 >Welcome to the Blood Donation Management System</h2>
-                    {user ? (
-                        user.userType === "admin" ? (
-                            <>
-                                <h3>Welcome, {user.donarName || user.bloodBankName || user.adminName}</h3>
-                                <button onClick={() => navigate("/blood-donation-management-system/admin-dashboard")}>
-                                    Go to Dashboard
-                                </button>
-                            </>
-                        ) : user.userType === "donar" || user.userType === "bloodbank" ? (
-                            <>
-                                <h3>Welcome, {user.donarName || user.bloodBankName}</h3>
-                                <button onClick={() => navigate("/blood-donation-management-system/user-dashboard")}>
-                                    Go to Dashboard
-                                </button>
-                            </>
-                        ) : (
-                            <button onClick={() => navigate("/blood-donation-management-system/login")}>
-                                Login / Register
-                            </button>
-                        )
-                    ) : (
-                        <button onClick={() => navigate("/blood-donation-management-system/login")}>
-                            Login / Register
-                        </button>
-                    )}
-                </section>
-
+                <SlidingImg />
 
                 <section id="notifications" className="notifications">
                     <h2>Notifications</h2>
@@ -504,10 +448,7 @@ const Home = () => {
                     </form>
                 </section>
 
-                <footer>
-                    <p>&copy; 2024 Blood Donation Management System</p>
-                    <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-                </footer>
+                <Footer />
             </div>
         </div>
     );

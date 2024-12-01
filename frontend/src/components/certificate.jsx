@@ -98,6 +98,7 @@ const Certificate = () => {
                         <p className={styles.signatureLabel}>[Designation]</p>
                     </div>
                 </div>
+
             </div>
             <button onClick={handleDownload} className={styles.downloadButton}>
                 Download Certificate

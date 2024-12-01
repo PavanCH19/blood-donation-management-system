@@ -5,22 +5,24 @@
 }
 
 .container {
-    width: 100%;
+    width: 60%;
     margin: 20px auto;
-    padding: 20px;
+    /* padding: 20px; */
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    place-items: center;
 }
 
 .form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Two columns */
+    column-gap: 100px;
+    row-gap: 20px;
+    /* Space between columns */
+    width: 90%;
 }
 
 .formGroup {
@@ -49,7 +51,7 @@
 }
 
 .submitBtn {
-    background-color: #007BFF;
+    background-color: #d9534f;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -66,11 +68,9 @@
 
 /* Hover effect */
 .submitBtn:hover {
-    background-color: #0056b3;
+    background-color: #c9302c;
     box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
-    /* Slightly stronger shadow on hover */
 }
-
 
 .header {
     text-align: center;
@@ -79,26 +79,24 @@
 
 /* Container for the checkbox and label */
 .checkboxContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* First column for checkbox, second for label */
     align-items: center;
-    /* Align checkbox and label vertically */
+    /* Vertically aligns checkbox and label */
     gap: 8px;
-    /* Add space between checkbox and label */
     font-size: 16px;
 }
 
-/* Styling for the checkbox */
 input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #007BFF;
-    /* Change the color of the checkbox */
+    accent-color: #d9534f;
     cursor: pointer;
     margin: 0;
-    /* Remove any default margins */
 }
 
-/* Styling for the label */
+
 .inputLabels {
     font-size: 14px;
     color: #333;
@@ -106,47 +104,39 @@ input[type="checkbox"] {
     align-items: center;
 }
 
-/* Link styling */
 .inputLabels a {
-    color: #007BFF;
-    /* Blue color for the link */
+    color: #d9534f;
     text-decoration: none;
-    /* Remove underline from the link */
     font-weight: bold;
     margin-left: 5px;
     transition: color 0.3s ease;
 }
 
 .inputLabels a:hover {
-    color: #0056b3;
-    /* Darker blue on hover */
+    color: #c9302c;
 }
 
-/* Focused checkbox styling */
 input[type="checkbox"]:focus {
-    outline: 2px solid #007BFF;
-    /* Add a focus outline for accessibility */
+    outline: 2px solid #d9534f;
     outline-offset: 2px;
 }
 
 .genderSelection div {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    /* Two columns */
     gap: 20px;
-    /* Space between radio button options */
+    /* Space between radio buttons */
     align-items: center;
-    /* Vertically align the radio buttons and labels */
 }
 
-/* Styling for the radio button inputs */
 .genderSelection input[type="radio"] {
     width: 18px;
     height: 18px;
     margin-right: 8px;
-    /* Space between radio button and label */
     cursor: pointer;
 }
 
-/* Styling for the radio button labels */
 .genderSelection label input[type="radio"]+span {
     font-size: 14px;
     color: #555;
@@ -162,36 +152,33 @@ input[type="checkbox"]:focus {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Aligning the content to the center */
-    justify-content: center;
+    display: grid;
+    place-items: center;
 }
 
-/* Title styling */
 .donorAvailability h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #333;
+    color: #d9534f;
     margin-bottom: 20px;
-    /* Adjusting spacing for better alignment */
     text-align: center;
-    /* Centering the title */
 }
 
-/* Donor available section */
-.donorAvailable {
-    background-color: #e7f9e7;
+.donorAvailable,
+.donorNotAvailable,
+.requestSummary {
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #d4e9d4;
     width: 100%;
-    /* Ensures it spans the full width */
     max-width: 750px;
-    /* Limiting max width for better responsiveness */
     text-align: center;
-    /* Center-aligning the text */
+    margin-top: 20px;
+}
+
+.donorAvailable {
+    background-color: #e7f9e7;
+    border: 1px solid #d4e9d4;
 }
 
 .donorAvailable p {
@@ -204,18 +191,9 @@ input[type="checkbox"]:focus {
     color: #28a745;
 }
 
-/* Donor not available section */
 .donorNotAvailable {
     background-color: #f8d7da;
-    padding: 20px;
-    border-radius: 8px;
     border: 1px solid #f5c6cb;
-    width: 100%;
-    /* Ensures it spans the full width */
-    max-width: 750px;
-    /* Limiting max width for better responsiveness */
-    text-align: center;
-    /* Center-aligning the text */
 }
 
 .donorNotAvailable p {
@@ -228,19 +206,9 @@ input[type="checkbox"]:focus {
     color: #721c24;
 }
 
-/* Request summary section */
 .requestSummary {
-    margin-top: 20px;
-    padding: 20px;
     background-color: #fff3cd;
     border: 1px solid #ffeeba;
-    border-radius: 10px;
-    width: 100%;
-    /* Ensures it spans the full width */
-    max-width: 750px;
-    /* Limiting max width for better responsiveness */
-    text-align: center;
-    /* Center-aligning the text */
 }
 
 .requestSummary p {
@@ -258,9 +226,8 @@ input[type="checkbox"]:focus {
     color: #856404;
 }
 
-/* Submit button styling */
 .donorAvailability button {
-    background-color: #007BFF;
+    background-color: #d9534f;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -269,21 +236,16 @@ input[type="checkbox"]:focus {
     margin-top: 20px;
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
-    /* Ensuring the button text is centered */
     width: 100%;
-    /* Making the button span the full width */
     max-width: 300px;
-    /* Limiting the max width */
+    text-align: center;
 }
 
-/* Submit button hover effect */
 .donorAvailability button:hover {
-    background-color: #0056b3;
+    background-color: #c9302c;
     transform: translateY(-2px);
 }
 
-/* Submit button active effect */
 .donorAvailability button:active {
     transform: translateY(0);
 }

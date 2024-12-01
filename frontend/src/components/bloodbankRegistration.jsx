@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../cssModules/forms.module.css"
 
+
 const BloodBankRegistration = () => {
     const location = useLocation();
     const { user, isEditing } = location.state || {};
@@ -115,6 +116,7 @@ const BloodBankRegistration = () => {
     };
 
     return (<>
+
         <div className={styles.containerbody}>
             <form className={styles.container} action="" onSubmit={handleSubmit}>
 

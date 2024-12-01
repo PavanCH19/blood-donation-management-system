@@ -1,5 +1,5 @@
 const conn = require("../connection.js");
-const { twilioClient, twilioNumber } = require("../twilioConfig.js");
+
 const { sendSMSNotifications } = require("../services/smsServices.js");
 
 exports.bloodRequestVerify = (req, res) => {
