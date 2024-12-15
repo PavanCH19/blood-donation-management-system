@@ -131,13 +131,7 @@ We welcome contributions! To contribute:
 ## 📜 License  
 This project is licensed under the [MIT License](LICENSE).  
 
----
 
-## 🙏 Acknowledgments  
-- 🏢 **VTU Placement Cell, Regional Office, Mysuru** for inspiring the idea.  
-- 🌟 Open-source community for tools and resources.  
-
----
 
 ## 🎉 Conclusion  
 The **Blood Donation Management System** aims to revolutionize blood donation management by:  
