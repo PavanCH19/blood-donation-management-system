@@ -131,7 +131,7 @@ We welcome contributions! To contribute:
 ## 📜 License  
 This project is licensed under the [MIT License](LICENSE).  
 
-
+---
 
 ## 🎉 Conclusion  
 The **Blood Donation Management System** aims to revolutionize blood donation management by:  
